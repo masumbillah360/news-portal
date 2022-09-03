@@ -10,9 +10,9 @@ const setCategories = (categories)=>{
         // console.log(category)
         const categoryList = document.createElement('li');
         categoryList.classList.add('nav-item')
-        // onclick = "loadNews('${category.category_id}')" 
+        // onclick = "loadNews('${category.category_id}')"  
         categoryList.innerHTML  = `
-            <a class="cat-btn nav-link text-dark" onclick = "loadNews('${category.category_id}')" href="#">${category.category_name}</a>
+            <a class="cat-btn nav-link text-dark" onmouseover = "loadNews('${category.category_id}')" href="#">${category.category_name}</a>
         `
         categoryContainer.appendChild(categoryList);
 
@@ -25,47 +25,52 @@ categoriesLoader()
 const loadNews=async(id)=>{
     const res = await fetch(`https://openapi.programming-hero.com/api/news/category/${id}`);
     const data = await res.json();
-    setNews(data);
-}
-const setNews = async(data)=>{
-    
+    const catBtn = document.getElementsByClassName('cat-btn');
     const catCounter = document.getElementById('category-counter');
-    const newsContainer = document.getElementById('news-container');
-    catCounter.innerHTML = `
-        <p>${data.data.length} Item's found</p>
+    for(const btn of catBtn){
+        btn.addEventListener("click",(e)=>{
+            // console.log(btn);
+            // console.log(e.target.innerText);
+            catCounter.innerHTML = `
+    <div class="alert alert-secondary" role="alert">
+    <h6 class = " p-3 rounded bg-white">${data.data.length} Item's found for this ${e.target.innerText}</h6>
+    </div>
     `;
+
+    const newsContainer = document.getElementById('news-container');
+    
     newsContainer.textContent = '';
-    const newsData =  await data.data;
+    const newsData =  data.data;
     newsData.forEach(news=>{
-        console.log(news)
-        const {title,rating, thumbnail_url,details,author} = news;
+        // console.log(news)
+        const {title,rating, thumbnail_url,details,author,total_view} = news;
         const {name,published_date,img} = author;
         // console.log(published_date.length);
         const createNews = document.createElement('article');
         createNews.classList.add('card', 'my-3');
         createNews.innerHTML = `
         <div class = "row gx-0">
-            <div class="col-md-4">
-                <img src="${thumbnail_url}" class="img-fluid rounded-start" alt="...">
+            <div class="col-md-4 text-center">
+                <img src="${thumbnail_url?thumbnail_url:""}" class="img-fluid w-100 py-4 px-3 rounded-start" alt="...">
             </div>
             <div class="col-md-8">
                 <div class="card-body">
                     <h5 class="card-title">${title?title:"not Found"}</h5>
-                    <p class="card-text">${details.length>250?details.slice(0,250)+"...":details}</p>
-                    <div class="card-footer row row-cols-2 row-cols-lg-4 mt-5 gx-2 gx-lg-3 align-items-center text-center">
+                    <p class="card-text pt-5">${details.length>450?details.slice(0,450)+"...":details}</p>
+                    <div class=" card-footer mt-5 row row-cols-2 row-cols-lg-4  gx-2 gx-lg-3 align-items-center text-center">
                         <div class="col">
                             <div class="d-flex align-items-center">
                                 <a class="navbar-brand" href="#">
                                     <img src="${img?img:"not Found"}" alt="" width="60" height="64" class = "rounded-circle">
                                 </a>
                                 <div class="">
-                                    <h6>${name?name:"not found"}</h6>
-                                    <p>${published_date? published_date.slice(0,11):"not found"}</p>
+                                    <span>${name?name:"not found"}</span>
+                                    <span>${published_date? published_date.slice(0,11):"not found"}</span>
                                 </div>
                             </div>
                         </div>
                         <div class="col">
-                            <h5><i class="fa-solid fa-eye"></i>1.5M</h5>
+                            <p><i class="fa-solid fa-eye"></i> ${total_view?total_view:"No View Yet"}</p>
                         </div>
                         <div class="col">
                         <span class="text-center d-block">${rating.number?rating.number:"no rating"}</span>
@@ -74,9 +79,8 @@ const setNews = async(data)=>{
                         <i class="fa-solid fa-star"></i>
                         <i class="fa-solid fa-star"></i>
                         <i class="fa-solid fa-star-half-stroke"></i>
-
-                        
                         </div>
+
                         <div class="col">
                             <button type="button" class="btn btn-outline-danger">See More <i
                                     class="fa-solid fa-arrow-right"></i></button>
@@ -89,9 +93,18 @@ const setNews = async(data)=>{
         newsContainer.appendChild(createNews)
         
     })
+
+
+        })
+    }
 }
-
-
+// loadNews();
+const setNews = async(data)=>{
+    
+    
+}
+setNews()
+loadNews('08')
 {/* <i class="fa-solid fa-star"></i>
                         <i class="fa-solid fa-star"></i>
                         <i class="fa-solid fa-star"></i>
