@@ -19,6 +19,13 @@ const setCategories = (categories)=>{
 const loadNews=async(id)=>{
     const res = await fetch(`https://openapi.programming-hero.com/api/news/category/${id}`);
     const data = await res.json();
+    setNews(data);
+}
+const setNews = async(data)=>{
     console.log(data);
+    const catCounter = document.getElementById('category-counter');
+    catCounter.innerHTML = `
+        <p>${data.data.length} Item's found on ${data.data.category_name}</p>
+    `
 }
 categoriesLoader()
