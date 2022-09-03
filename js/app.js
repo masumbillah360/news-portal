@@ -110,7 +110,7 @@ const setModalNews =(newsModal)=>{
     // console.log(newsModal.data);
     newsModal.data.forEach(news=>{
         const {title, details, image_url,thumbnail_url,total_view,rating,author}= news;
-
+        console.log(author);
         const modalTitle = document.getElementById('modal-title');
         modalTitle.innerText = title;
         const modalBody = document.getElementById('modal-body');
@@ -124,16 +124,16 @@ const setModalNews =(newsModal)=>{
                 <div class=" mt-5 d-flex flex-wrap justify-content-between align-items-center text-center">
                 <div class="d-flex align-items-center">
                     <a class="" href="#">
-                        <img src="..." alt="not found" width="60" height="64" class = "rounded-circle">
+                        <img src="${author.img?author.img:"no image found"}" alt="not found" width="60" height="64" class = "rounded-circle">
                     </a>
                     <div class="">
-                        <span class="d-block">Name</span>
-                        <span>pub date</span>
+                        <span class="d-block">${author.name?author.name:"no name found"}</span>
+                        <span>${author.published_date?author.published_date:"no published date"}</span>
                     </div>
                 </div>
         
                 <div>
-                    <span><i class="fa-solid fa-eye"></i> totla view</span>
+                    <span><i class="fa-solid fa-eye"></i> ${total_view?total_view:"not view yet"}</span>
                 </div>
                 <div>
                 <span class="text-center d-block">5.5</span>
