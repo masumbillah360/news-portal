@@ -117,9 +117,9 @@ const setModalNews =(newsModal)=>{
         modalBody.innerHTML = `
         
         <div class="card">
-            <img src="${image_url}" class="card-img-top" alt="...">
+            <img src="${image_url?image_url:'no image'}" class="card-img-top img-fluid" alt="...">
             <div class="card-body">
-                <p class="card-text">${details}</p>
+                <p class="card-text">${details?details:"No Description for this news"}</p>
             </div>
         </div>
 
