@@ -68,13 +68,14 @@ const setNews = async(data)=>{
                             <h5><i class="fa-solid fa-eye"></i>1.5M</h5>
                         </div>
                         <div class="col">
-                            <div class="flex">
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star-half-stroke"></i>
-                            </div>
+                        <span class="text-center d-block">${rating.number?rating.number:"no rating"}</span>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star-half-stroke"></i>
+
+                        
                         </div>
                         <div class="col">
                             <button type="button" class="btn btn-outline-danger">See More <i
@@ -89,3 +90,10 @@ const setNews = async(data)=>{
         
     })
 }
+
+
+{/* <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+<i class="fa-solid fa-star-half-stroke"></i>*/}
