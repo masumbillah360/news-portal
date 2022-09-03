@@ -65,10 +65,10 @@ const loadNews = async(id,name)=>{
                         <div class="col">
                             <div class="d-flex align-items-center">
                                 <a class="" href="#">
-                                    <img src="${img?img:"not Found"}" alt="" width="60" height="64" class = "rounded-circle">
+                                    <img src="${img?img:"not Found"}" alt="not found" width="60" height="64" class = "rounded-circle">
                                 </a>
                                 <div class="">
-                                    <span>${name?name:"not found"}</span>
+                                    <span class="d-block">${name?name:"not found"}</span>
                                     <span>${published_date? published_date.slice(0,11):"not found"}</span>
                                 </div>
                             </div>
@@ -120,6 +120,31 @@ const setModalNews =(newsModal)=>{
             <img src="${image_url?image_url:'no image'}" class="card-img-top img-fluid" alt="...">
             <div class="card-body">
                 <p class="card-text">${details?details:"No Description for this news"}</p>
+
+                <div class=" mt-5 d-flex flex-wrap justify-content-between align-items-center text-center">
+                <div class="d-flex align-items-center">
+                    <a class="" href="#">
+                        <img src="..." alt="not found" width="60" height="64" class = "rounded-circle">
+                    </a>
+                    <div class="">
+                        <span class="d-block">Name</span>
+                        <span>pub date</span>
+                    </div>
+                </div>
+        
+                <div>
+                    <span><i class="fa-solid fa-eye"></i> totla view</span>
+                </div>
+                <div>
+                <span class="text-center d-block">5.5</span>
+                <i class="fa-solid fa-star text-warning"></i>
+                <i class="fa-solid fa-star text-warning"></i>
+                <i class="fa-solid fa-star text-warning"></i>
+                <i class="fa-solid fa-star text-warning"></i>
+                <i class="fa-solid fa-star-half-stroke text-warning"></i>
+                </div>
+            </div>
+               
             </div>
         </div>
 
