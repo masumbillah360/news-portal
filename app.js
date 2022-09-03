@@ -1,7 +1,11 @@
 const categoriesLoader = async(url)=>{
+    try {
         const res = await fetch('https://openapi.programming-hero.com/api/news/categories');
         const data = await res.json();
         setCategories(data.data.news_category);
+    } catch (error) {
+        alert("Error is herer \n"+error)
+    }
     
 }
 const setCategories = (categories)=>{
@@ -70,20 +74,18 @@ const loadNews=async(id)=>{
                             </div>
                         </div>
                         <div class="col">
-                            <p><i class="fa-solid fa-eye"></i> ${total_view?total_view:"No View Yet"}</p>
+                            <span><i class="fa-solid fa-eye"></i> ${total_view?total_view:"No View Yet"}</span>
                         </div>
                         <div class="col">
                         <span class="text-center d-block">${rating.number?rating.number:"no rating"}</span>
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star-half-stroke"></i>
+                        <i class="fa-solid fa-star text-warning"></i>
+                        <i class="fa-solid fa-star text-warning"></i>
+                        <i class="fa-solid fa-star text-warning"></i>
+                        <i class="fa-solid fa-star text-warning"></i>
+                        <i class="fa-solid fa-star-half-stroke text-warning"></i>
                         </div>
-
                         <div class="col">
-                            <button type="button" class="btn btn-outline-danger">See More <i
-                                    class="fa-solid fa-arrow-right"></i></button>
+                            <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#staticBackdrop" >See More <i class="fa-solid fa-arrow-right"></i></button>
                         </div>
                     </div>
                 </div>
@@ -99,11 +101,6 @@ const loadNews=async(id)=>{
     }
 }
 // loadNews();
-const setNews = async(data)=>{
-    
-    
-}
-setNews()
 loadNews('08')
 {/* <i class="fa-solid fa-star"></i>
                         <i class="fa-solid fa-star"></i>
