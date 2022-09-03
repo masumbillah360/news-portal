@@ -41,6 +41,10 @@ const loadNews = async(id,name)=>{
     const newsContainer = document.getElementById('news-container');
     newsContainer.textContent = '';
     const newsData =  data.data;
+    console.log(newsData);
+    newsData.sort((a,b)=>{
+        return b.total_view - a.total_view;
+    })
     newsData.forEach(news=>{
         // console.log(news)
         const {title,rating, thumbnail_url,details,author,total_view,_id} = news;
@@ -60,7 +64,7 @@ const loadNews = async(id,name)=>{
                     <div class=" mt-5 row row-cols-2 row-cols-lg-4  gx-2 gx-lg-3 align-items-center text-center">
                         <div class="col">
                             <div class="d-flex align-items-center">
-                                <a class="navbar-brand" href="#">
+                                <a class="" href="#">
                                     <img src="${img?img:"not Found"}" alt="" width="60" height="64" class = "rounded-circle">
                                 </a>
                                 <div class="">
