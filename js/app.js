@@ -15,7 +15,7 @@ const setCategories = (categories)=>{
         const categoryList = document.createElement('li');
         categoryList.classList.add('nav-item')  
         categoryList.innerHTML  = `
-            <a class="cat-btn nav-link text-dark" onclick = "loadNews('${category.category_id}','${category.category_name}')" href="#">${category.category_name}</a>
+            <button class="btn btn-outline-info nav-link text-dark" onclick = "loadNews('${category.category_id}','${category.category_name}')">${category.category_name}</button>
         `
         categoryContainer.appendChild(categoryList);
     })
@@ -49,6 +49,7 @@ const setNews = (data,name)=>{
         <h6 class = " p-3 rounded bg-white">${data.data.length} News found for ${name}</h6>
         </div>
     `
+    // loading spinner show starts 
     loadSpinner(true);
     const newsContainer = document.getElementById('news-container');
     newsContainer.textContent = '';
@@ -104,9 +105,11 @@ const setNews = (data,name)=>{
         `
         newsContainer.appendChild(createNews)
     })
+    // loading spinner showing stop here 
     loadSpinner(false);
 }
 
+// load news for details more btn to show on modal 
 const modalNews = async(id)=>{
     try {
         const res = await fetch(`https://openapi.programming-hero.com/api/news/${id}`)
@@ -116,9 +119,8 @@ const modalNews = async(id)=>{
         alert(`Connect Your network ${error}`);
     }
 }
-
+// function for get news from modalNews and set to the modal section  
 const setModalNews =(newsModal)=>{
-    // console.log(newsModal.data);
     newsModal.data.forEach(news=>{
         const {title, details, image_url,thumbnail_url,total_view,rating,author}= news;
         console.log(author);
@@ -126,7 +128,6 @@ const setModalNews =(newsModal)=>{
         modalTitle.innerText = title;
         const modalBody = document.getElementById('modal-body');
         modalBody.innerHTML = `
-        
         <div class="card">
             <img src="${image_url?image_url:'no image'}" class="card-img-top img-fluid" alt="...">
             <div class="card-body">
@@ -160,10 +161,10 @@ const setModalNews =(newsModal)=>{
                
             </div>
         </div>
-
     `
-    })
+    });
 }
 modalNews()
 
+// call load news to show some default news 
 loadNews('01','Breaking News')
