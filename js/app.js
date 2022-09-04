@@ -144,10 +144,10 @@ const setModalNews =(newsModal)=>{
                 </div>
         
                 <div class = "row justify-content-around align-items-center">
-                <div class= "col-md-6">
+                <div class= "col-6">
                         <span><i class="fa-solid fa-eye"></i> ${total_view?total_view:"not view yet"}</span>
                     </div>
-                    <div class = "col-md-6">
+                    <div class = "col-6">
                         <span class="text-center d-block">${rating.number?rating.number:"no rating"}</span>
                         <i class="fa-solid fa-star text-warning"></i>
                         <i class="fa-solid fa-star text-warning"></i>
