@@ -26,18 +26,30 @@ const setCategories = (categories)=>{
 categoriesLoader()
 // setCategories()
 
+const loadSpinner = (isLoading)=>{
+    const loadSpinner = document.getElementById('loading-spinner');
+    if (isLoading) {    
+        loadSpinner.classList.remove('d-none')
+    }
+    else{
+        loadSpinner.classList.add('d-none');
+    }
+    // loadSpinner.classList.add('d-none');
+}
+
 const loadNews = async(id,name)=>{
     const res = await fetch(`https://openapi.programming-hero.com/api/news/category/${id}`);
     const data = await res.json();
     // console.log(data)
     // console.log(name)
-
+    
     const catCounter = document.getElementById('category-counter');
     catCounter.innerHTML = `
         <div class="alert alert-secondary" role="alert">
         <h6 class = " p-3 rounded bg-white">${data.data.length} Item's found for this ${name}</h6>
         </div>
     `
+    loadSpinner(true);
     const newsContainer = document.getElementById('news-container');
     newsContainer.textContent = '';
     const newsData =  data.data;
@@ -94,6 +106,7 @@ const loadNews = async(id,name)=>{
         `
         newsContainer.appendChild(createNews)
     })
+    loadSpinner(false);
 }
 
 const modalNews = async(id)=>{
