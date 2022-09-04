@@ -5,7 +5,7 @@ const categoriesLoader = async(url)=>{
         const data = await res.json();
         setCategories(data.data.news_category);
     } catch (error) {
-        alert("Please Connect Your Network.\n"+error)
+        alert(`Please Connect Your Network.${+error}`)
     }    
 }
 // set categories function on web page to get load categories function 
@@ -46,7 +46,7 @@ const setNews = (data,name)=>{
     const catCounter = document.getElementById('category-counter');
     catCounter.innerHTML = `
         <div class="alert alert-secondary" role="alert">
-        <h6 class = " p-3 rounded bg-white">${data.data.length} Item's found for this ${name}</h6>
+        <h6 class = " p-3 rounded bg-white">${data.data.length} News found for ${name}</h6>
         </div>
     `
     loadSpinner(true);
@@ -57,10 +57,9 @@ const setNews = (data,name)=>{
         return b.total_view - a.total_view;
     })
     newsData.forEach(news=>{
-        // console.log(news)
         const {title,rating, thumbnail_url,details,author,total_view,_id} = news;
         const {name,published_date,img} = author;
-        // console.log(published_date.length);
+
         const createNews = document.createElement('article');
         createNews.classList.add('card', 'my-3');
         createNews.innerHTML = `
@@ -110,11 +109,11 @@ const setNews = (data,name)=>{
 
 const modalNews = async(id)=>{
     try {
-        const res = await fetch(` https://openapi.programming-hero.com/api/news/${id}`)
+        const res = await fetch(`https://openapi.programming-hero.com/api/news/${id}`)
         const data = await res.json();
         setModalNews(data);
     } catch (error) {
-        alert("Connect Your network"+error);
+        alert(`Connect Your network ${error}`);
     }
 }
 
@@ -133,8 +132,8 @@ const setModalNews =(newsModal)=>{
             <div class="card-body">
                 <p class="card-text">${details?details:"No Description for this news"}</p>
 
-                <div class=" mt-5 d-flex flex-wrap justify-content-between align-items-center text-center">
-                <div class="d-flex align-items-center">
+                <div class=" mt-5 row justify-content-center align-items-center text-center">
+                <div class="col col-md-4 align-items-center justify-content-center">
                     <a class="" href="#">
                         <img src="${author.img?author.img:"no image found"}" alt="not found" width="60" height="64" class = "rounded-circle">
                     </a>
@@ -144,16 +143,18 @@ const setModalNews =(newsModal)=>{
                     </div>
                 </div>
         
-                <div>
-                    <span><i class="fa-solid fa-eye"></i> ${total_view?total_view:"not view yet"}</span>
-                </div>
-                <div>
-                <span class="text-center d-block">5.5</span>
-                <i class="fa-solid fa-star text-warning"></i>
-                <i class="fa-solid fa-star text-warning"></i>
-                <i class="fa-solid fa-star text-warning"></i>
-                <i class="fa-solid fa-star text-warning"></i>
-                <i class="fa-solid fa-star-half-stroke text-warning"></i>
+                <div class = "row justify-content-around align-items-center">
+                <div class= "col-md-6">
+                        <span><i class="fa-solid fa-eye"></i> ${total_view?total_view:"not view yet"}</span>
+                    </div>
+                    <div class = "col-md-6">
+                        <span class="text-center d-block">${rating.number?rating.number:"no rating"}</span>
+                        <i class="fa-solid fa-star text-warning"></i>
+                        <i class="fa-solid fa-star text-warning"></i>
+                        <i class="fa-solid fa-star text-warning"></i>
+                        <i class="fa-solid fa-star text-warning"></i>
+                        <i class="fa-solid fa-star-half-stroke text-warning"></i>
+                    </div>
                 </div>
             </div>
                
@@ -165,4 +166,4 @@ const setModalNews =(newsModal)=>{
 }
 modalNews()
 
-loadNews()
+loadNews('01','Breaking News')
