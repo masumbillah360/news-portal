@@ -1,31 +1,28 @@
+// load categories from api 
 const categoriesLoader = async(url)=>{
     try {
         const res = await fetch('https://openapi.programming-hero.com/api/news/categories');
         const data = await res.json();
         setCategories(data.data.news_category);
     } catch (error) {
-        alert("Error is herer \n"+error)
+        alert("Please Connect Your Network.\n"+error)
     }    
 }
-
+// set categories function on web page to get load categories function 
 const setCategories = (categories)=>{
     const categoryContainer = document.getElementById('category-container');
     categories.forEach(category=>{
-        // console.log(category)
         const categoryList = document.createElement('li');
-        categoryList.classList.add('nav-item')
-        // onclick = "loadNews('${category.category_id}')"  
+        categoryList.classList.add('nav-item')  
         categoryList.innerHTML  = `
             <a class="cat-btn nav-link text-dark" onclick = "loadNews('${category.category_id}','${category.category_name}')" href="#">${category.category_name}</a>
         `
         categoryContainer.appendChild(categoryList);
-
     })
-
 }
 categoriesLoader()
-// setCategories()
 
+// Loading spinner function for web page 
 const loadSpinner = (isLoading)=>{
     const loadSpinner = document.getElementById('loading-spinner');
     if (isLoading) {    
@@ -34,15 +31,18 @@ const loadSpinner = (isLoading)=>{
     else{
         loadSpinner.classList.add('d-none');
     }
-    // loadSpinner.classList.add('d-none');
 }
-
+// function for loading news from api 
 const loadNews = async(id,name)=>{
-    const res = await fetch(`https://openapi.programming-hero.com/api/news/category/${id}`);
-    const data = await res.json();
-    // console.log(data)
-    // console.log(name)
-    
+    try {
+        const res = await fetch(`https://openapi.programming-hero.com/api/news/category/${id}`);
+        const data = await res.json();
+        setNews(data,name); 
+    } catch (error) {
+        alert(`Please Connect Your Network and try agin ${error}`)
+    }
+}
+const setNews = (data,name)=>{
     const catCounter = document.getElementById('category-counter');
     catCounter.innerHTML = `
         <div class="alert alert-secondary" role="alert">
@@ -53,7 +53,6 @@ const loadNews = async(id,name)=>{
     const newsContainer = document.getElementById('news-container');
     newsContainer.textContent = '';
     const newsData =  data.data;
-    console.log(newsData);
     newsData.sort((a,b)=>{
         return b.total_view - a.total_view;
     })
@@ -165,4 +164,5 @@ const setModalNews =(newsModal)=>{
     })
 }
 modalNews()
-// loadNews()
+
+loadNews()
